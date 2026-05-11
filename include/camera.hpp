@@ -7,7 +7,7 @@ public:
   ~Camera();
 
   glm::mat4 getViewMatrix() const;
-
+  glm::mat4 getProjection() const;
   void MoveForward(float dist);
   void MoveBackward(float dist);
   void MoveLeft(float dist);
