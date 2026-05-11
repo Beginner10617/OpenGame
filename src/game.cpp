@@ -68,7 +68,7 @@ Game::Game(int width, int height, const char *title) {
   // Init SDL
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
     std::cout << "Error initializing SDL\n";
-    exit(1);
+    exit(EXIT_FAILURE);
   }
 
   // Setting up OpenGL Context Attributes
@@ -102,6 +102,7 @@ Game::Game(int width, int height, const char *title) {
     exit(EXIT_FAILURE);
   }
   GetOpenGLContextInfo();
+  isRunning = true;
 }
 void Game::CreateGraphicsPipeline(const char *vShader, const char *fShader) {
   graphicsPipeline = CreateShaderProgram(vShader, fShader);
