@@ -1,14 +1,18 @@
-#ifndef GAME
-#define GAME
+#ifndef GAME_HPP
+#define GAME_HPP
+#include "SDL.h"
 #include "camera.hpp"
-#include <SDL.h>
+#include <glad/glad.h>
 class Game {
 public:
-  Game(int screenwidth, int screenheight);
-  HandleInput();
-  Update(float deltaTime);
-  Render();
+  Game(int screenwidth, int screenheight, const char *title);
+  void CreateGraphicsPipeline(const char *vShader, const char *fShader);
+  void HandleInput();
+  void Update(float deltaTime);
+  void Render();
   ~Game();
+
+  bool getIsRunning();
 
 private:
   int screenwidth;
@@ -18,5 +22,5 @@ private:
   bool isRunning;
   GLuint graphicsPipeline;
   Camera camera;
-}
+};
 #endif

@@ -13,6 +13,8 @@ public:
   void MoveBackward(float dist);
   void MoveLeft(float dist);
   void MoveRight(float dist);
+  void MoveUp(float dist);
+  void MoveDown(float dist);
 
   void TurnUp(float angle); // angle presumed in degrees
   void TurnDown(float angle);
@@ -23,5 +25,5 @@ private:
   glm::vec3 Eye;
   glm::vec3 forwardDirection;
   glm::vec3 upDirection;
-}
+};
 #endif
