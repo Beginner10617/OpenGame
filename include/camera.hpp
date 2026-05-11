@@ -4,7 +4,6 @@
 class Camera {
 public:
   Camera();
-  Camera(glm::vec3 eye);
   ~Camera();
 
   glm::mat4 getViewMatrix() const;
@@ -25,5 +24,6 @@ private:
   glm::vec3 Eye;
   glm::vec3 forwardDirection;
   glm::vec3 upDirection;
+  float FOV, aspect, near, far;
 };
 #endif
