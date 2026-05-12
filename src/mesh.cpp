@@ -4,6 +4,9 @@
 #include "stb_image.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+void Mesh3D::updateTransform(const Transform &trnsfrm) { transform = trnsfrm; }
+Transform Mesh3D::getTransform() { return transform; }
+
 Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
                const std::vector<GLuint> &ixData, const char *texturePath) {
 
@@ -72,8 +75,6 @@ Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
 
   glBindVertexArray(0);
 }
-void Mesh3D::updateTransform(const Transform &trnsfrm) { transform = trnsfrm; }
-Transform Mesh3D::getTransform() { return transform; }
 
 void Mesh3D::draw(GLuint pipeline, const Camera &camera) {
 
@@ -88,7 +89,6 @@ void Mesh3D::draw(GLuint pipeline, const Camera &camera) {
     std::cerr << "Can't find \"u_Projection\" maybe spelling error\n";
     exit(EXIT_FAILURE);
   }
-  glm::mat4 view = camera.getViewMatrix();
   GLint u_viewlocn = glGetUniformLocation(pipeline, "u_ViewMatrix");
   if (u_viewlocn < 0) {
     std::cerr << "Can't find \"u_ViewMatrix\" maybe spelling error\n";
@@ -103,11 +103,12 @@ void Mesh3D::draw(GLuint pipeline, const Camera &camera) {
   model = glm::rotate(model, glm::radians(transform.EulerAngles.z),
                       glm::vec3(0.0f, 0.0f, 1.0f));
   model = glm::scale(model, transform.Scale);
+
   glm::mat4 projection = camera.getProjection();
-  glUniformMatrix4fv(u_ModelMatlocn, 1, false, &model[0][0]);
-  glUniformMatrix4fv(u_projectionlocn, 1, false, &projection[0][0]);
-  glUniformMatrix4fv(u_viewlocn, 1, false, &view[0][0]);
-  glUseProgram(pipeline);
+  glm::mat4 view = camera.getViewMatrix();
+  glUniformMatrix4fv(u_ModelMatlocn, 1, GL_FALSE, &model[0][0]);
+  glUniformMatrix4fv(u_projectionlocn, 1, GL_FALSE, &projection[0][0]);
+  glUniformMatrix4fv(u_viewlocn, 1, GL_FALSE, &view[0][0]);
   glBindVertexArray(vertexArrayObj);
   glDrawElements(GL_TRIANGLES, indexData.size(), GL_UNSIGNED_INT, 0);
   glUseProgram(0);

@@ -22,10 +22,11 @@ public:
   void TwistLeft(float angle);
   void TwistRight(float angle);
 
-private:
   glm::vec3 Eye;
   glm::vec3 forwardDirection;
   glm::vec3 upDirection;
+
+private:
   float FOV, aspect, near, far;
 };
 #endif

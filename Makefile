@@ -28,7 +28,7 @@ C_OBJS   = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(C_SRCS))
 OBJS = $(CPP_OBJS) $(C_OBJS)
 
 # Output executable
-TARGET = $(BUILD_DIR)/app
+TARGET = $(BUILD_DIR)/main
 
 all: $(TARGET)
 
