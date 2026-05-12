@@ -12,6 +12,19 @@ void GetOpenGLContextInfo() {
   std::cout << "Shading Lang: " << glGetString(GL_SHADING_LANGUAGE_VERSION)
             << std::endl;
 }
+std::string LoadShaderSource(const char *filepath) {
+  std::ifstream file(filepath);
+
+  if (!file.is_open()) {
+    std::cerr << "Failed to open shader file\n";
+    exit(EXIT_FAILURE);
+  }
+
+  std::stringstream buffer;
+  buffer << file.rdbuf();
+
+  return buffer.str();
+}
 
 GLuint CompileShader(GLuint type, const char *source) {
   GLuint shaderObj;
@@ -104,20 +117,6 @@ Game::Game(int width, int height, const char *title) {
   }
   GetOpenGLContextInfo();
   isRunning = true;
-}
-
-std::string LoadShaderSource(const char *filepath) {
-  std::ifstream file(filepath);
-
-  if (!file.is_open()) {
-    std::cerr << "Failed to open shader file\n";
-    exit(EXIT_FAILURE);
-  }
-
-  std::stringstream buffer;
-  buffer << file.rdbuf();
-
-  return buffer.str();
 }
 
 void Game::CreateGraphicsPipeline(const char *vShader, const char *fShader) {
