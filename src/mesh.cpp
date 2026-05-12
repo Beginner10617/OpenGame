@@ -2,6 +2,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "mesh.hpp"
 #include "stb_image.h"
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
                const std::vector<GLuint> &ixData, const char *texturePath) {
@@ -73,3 +74,41 @@ Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
 }
 void Mesh3D::updateTransform(const Transform &trnsfrm) { transform = trnsfrm; }
 Transform Mesh3D::getTransform() { return transform; }
+
+void Mesh3D::draw(GLuint pipeline, const Camera &camera) {
+
+  glUseProgram(pipeline);
+  GLint u_ModelMatlocn = glGetUniformLocation(pipeline, "u_ModelMatrix");
+  if (u_ModelMatlocn < 0) {
+    std::cerr << "Can't find \"u_ModelMatrix\" maybe spelling error\n";
+    exit(EXIT_FAILURE);
+  }
+  GLint u_projectionlocn = glGetUniformLocation(pipeline, "u_Projection");
+  if (u_projectionlocn < 0) {
+    std::cerr << "Can't find \"u_Projection\" maybe spelling error\n";
+    exit(EXIT_FAILURE);
+  }
+  glm::mat4 view = camera.getViewMatrix();
+  GLint u_viewlocn = glGetUniformLocation(pipeline, "u_ViewMatrix");
+  if (u_viewlocn < 0) {
+    std::cerr << "Can't find \"u_ViewMatrix\" maybe spelling error\n";
+    exit(EXIT_FAILURE);
+  }
+  glm::mat4 model = glm::mat4(1.0f);
+  model = glm::translate(model, transform.Translate);
+  model = glm::rotate(model, glm::radians(transform.EulerAngles.x),
+                      glm::vec3(1.0f, 0.0f, 0.0f));
+  model = glm::rotate(model, glm::radians(transform.EulerAngles.y),
+                      glm::vec3(0.0f, 1.0f, 0.0f));
+  model = glm::rotate(model, glm::radians(transform.EulerAngles.z),
+                      glm::vec3(0.0f, 0.0f, 1.0f));
+  model = glm::scale(model, transform.Scale);
+  glm::mat4 projection = camera.getProjection();
+  glUniformMatrix4fv(u_ModelMatlocn, 1, false, &model[0][0]);
+  glUniformMatrix4fv(u_projectionlocn, 1, false, &projection[0][0]);
+  glUniformMatrix4fv(u_viewlocn, 1, false, &view[0][0]);
+  glUseProgram(pipeline);
+  glBindVertexArray(vertexArrayObj);
+  glDrawElements(GL_TRIANGLES, indexData.size(), GL_UNSIGNED_INT, 0);
+  glUseProgram(0);
+}

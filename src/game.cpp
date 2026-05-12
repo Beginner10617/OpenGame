@@ -2,7 +2,6 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
-#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 #include <sstream>
 // helper functions
@@ -151,43 +150,9 @@ void Game::addMesh(Mesh3D *mesh) { meshes.push_back(mesh); }
 void Game::clearMeshes() { meshes.clear(); }
 
 // helprer functions
-void drawMesh(Mesh3D *mesh, GLuint pipeline, const Camera &camera) {
-
-  glUseProgram(pipeline);
-  GLint u_ModelMatlocn = glGetUniformLocation(pipeline, "u_ModelMatrix");
-  if (u_ModelMatlocn < 0) {
-    std::cerr << "Can't find \"u_ModelMatrix\" maybe spelling error\n";
-    exit(EXIT_FAILURE);
-  }
-  GLint u_projectionlocn = glGetUniformLocation(pipeline, "u_Projection");
-  if (u_projectionlocn < 0) {
-    std::cerr << "Can't find \"u_Projection\" maybe spelling error\n";
-    exit(EXIT_FAILURE);
-  }
-  glm::mat4 view = camera.getViewMatrix();
-  GLint u_viewlocn = glGetUniformLocation(pipeline, "u_ViewMatrix");
-  if (u_viewlocn < 0) {
-    std::cerr << "Can't find \"u_ViewMatrix\" maybe spelling error\n";
-    exit(EXIT_FAILURE);
-  }
-  glm::mat4 model = glm::mat4(1.0f);
-  model = glm::translate(model, mesh->getTransform().Translate);
-  // model = glm::rotate(model, (mesh->m_uangle), glm::vec3(0.0f, 1.0f, 0.0f));
-  // model = glm::scale(model,
-  //                    glm::vec3(mesh->m_uscale, mesh->m_uscale,
-  //                    mesh->m_uscale));
-  glm::mat4 projection = camera.getProjection();
-  glUniformMatrix4fv(u_ModelMatlocn, 1, false, &model[0][0]);
-  glUniformMatrix4fv(u_projectionlocn, 1, false, &projection[0][0]);
-  glUniformMatrix4fv(u_viewlocn, 1, false, &view[0][0]);
-  glUseProgram(pipeline);
-  glBindVertexArray(mesh->vertexArrayObj);
-  glDrawElements(GL_TRIANGLES, mesh->indexData.size(), GL_UNSIGNED_INT, 0);
-  glUseProgram(0);
-}
 void Game::Render() {
   for (auto mesh : meshes) {
-    drawMesh(mesh, graphicsPipeline, camera);
+    mesh->draw(graphicsPipeline, camera);
   }
 
   SDL_GL_SwapWindow(window);

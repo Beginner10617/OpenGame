@@ -16,13 +16,12 @@ public:
       const char *texture); // vertex data assumed of the form : x, y, z, u, v
   void updateTransform(const Transform &transform);
   Transform getTransform();
-
-  GLuint vertexArrayObj, vertexBufferObj, indexBufferObj, textureObj;
-
-  std::vector<GLuint> indexData;
+  void draw(GLuint pipeline, const Camera &camera);
 
 private:
   std::vector<GLfloat> vertexData;
+  GLuint vertexArrayObj, vertexBufferObj, indexBufferObj, textureObj;
+  std::vector<GLuint> indexData;
   Transform transform;
 };
 #endif
