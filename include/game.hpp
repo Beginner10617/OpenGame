@@ -2,6 +2,7 @@
 #define GAME_HPP
 #include "SDL.h"
 #include "camera.hpp"
+#include "mesh.hpp"
 #include <glad/glad.h>
 class Game {
 public:
@@ -11,8 +12,9 @@ public:
   void Update(float deltaTime);
   void Render();
   ~Game();
-
   bool getIsRunning();
+  void addMesh(Mesh3D *mesh);
+  void clearMeshes();
 
 private:
   int screenwidth;
@@ -22,5 +24,6 @@ private:
   bool isRunning;
   GLuint graphicsPipeline;
   Camera camera;
+  std::vector<Mesh3D *> meshes;
 };
 #endif

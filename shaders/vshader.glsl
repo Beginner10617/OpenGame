@@ -1,14 +1,21 @@
-#version 410 core
+#version 330 core
 
-layout(location=0) in vec3 position;
-layout(location=1) in vec3 vclr;
+layout(location = 0) in vec3 aPos;
+layout(location = 1) in vec2 aTexCoord;
 
-out vec3 vcolors;
+out vec2 TexCoord;
+
 uniform mat4 u_ModelMatrix;
-uniform mat4 u_Projection;
 uniform mat4 u_ViewMatrix;
-void main(){
-	vcolors = vclr;
-  vec4 newposn = u_Projection * u_ViewMatrix * u_ModelMatrix * vec4(position, 1.0f);
-	gl_Position = newposn;
+uniform mat4 u_Projection;
+
+void main()
+{
+    gl_Position =
+        u_Projection *
+        u_ViewMatrix *
+        u_ModelMatrix *
+        vec4(aPos, 1.0);
+
+    TexCoord = aTexCoord;
 }

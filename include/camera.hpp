@@ -19,6 +19,8 @@ public:
   void TurnDown(float angle);
   void TurnLeft(float angle);
   void TurnRight(float angle);
+  void TwistLeft(float angle);
+  void TwistRight(float angle);
 
 private:
   glm::vec3 Eye;
