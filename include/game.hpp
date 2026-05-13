@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "camera.hpp"
 #include "mesh.hpp"
+#include "model.hpp"
 #include <glad/glad.h>
 class Game {
 public:
@@ -15,6 +16,7 @@ public:
   bool getIsRunning();
   void addMesh(Mesh3D *mesh);
   void clearMeshes();
+  void addModel(Model *model);
 
 private:
   int screenwidth;

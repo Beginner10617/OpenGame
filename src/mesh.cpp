@@ -6,6 +6,13 @@
 #include <iostream>
 void Mesh3D::updateTransform(const Transform &trnsfrm) { transform = trnsfrm; }
 Transform Mesh3D::getTransform() { return transform; }
+void Mesh3D::applyRotation(glm::vec3 eulerAngles) {
+  transform.EulerAngles += eulerAngles;
+}
+void Mesh3D::applyTranslation(glm::vec3 translate) {
+  transform.Translate += translate;
+}
+void Mesh3D::applyScale(glm::vec3 scale) { transform.Scale = scale; }
 
 Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
                const std::vector<GLuint> &ixData, const char *texturePath) {
@@ -109,6 +116,8 @@ void Mesh3D::draw(GLuint pipeline, const Camera &camera) {
   glUniformMatrix4fv(u_ModelMatlocn, 1, GL_FALSE, &model[0][0]);
   glUniformMatrix4fv(u_projectionlocn, 1, GL_FALSE, &projection[0][0]);
   glUniformMatrix4fv(u_viewlocn, 1, GL_FALSE, &view[0][0]);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, textureObj);
   glBindVertexArray(vertexArrayObj);
   glDrawElements(GL_TRIANGLES, indexData.size(), GL_UNSIGNED_INT, 0);
   glUseProgram(0);

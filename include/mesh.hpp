@@ -17,6 +17,9 @@ public:
   void updateTransform(const Transform &transform);
   Transform getTransform();
   void draw(GLuint pipeline, const Camera &camera);
+  void applyRotation(glm::vec3 eulerAngles);
+  void applyTranslation(glm::vec3 translate);
+  void applyScale(glm::vec3 scale);
 
 private:
   std::vector<GLfloat> vertexData;
