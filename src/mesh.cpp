@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <vector>
 #define STB_IMAGE_IMPLEMENTATION
 #include "mesh.hpp"
 #include "stb_image.h"
@@ -10,15 +11,10 @@ void Mesh3D::applyRotation(glm::vec3 eulerAngles) {
   transform.EulerAngles += eulerAngles;
 }
 void Mesh3D::applyTranslation(glm::vec3 translate) {
-  std::cout << "Old tran: "<<(float)transform.Translate.x
-    <<", " << (float)transform.Translate.y << ", "
-    << (float)transform.Translate.z<<"\n";
   transform.Translate += translate;
-  std::cout << "New tran: "<<(float)transform.Translate.x
-    <<", " << (float)transform.Translate.y << ", "
-    << (float)transform.Translate.z<<"\n";
 }
 void Mesh3D::applyScale(glm::vec3 scale) { transform.Scale = scale; }
+std::vector<GLfloat> *Mesh3D::getVdata() { return &vertexData; }
 
 Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
                const std::vector<GLuint> &ixData, const char *texturePath) {
@@ -33,7 +29,7 @@ Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
       stbi_load(texturePath, &width, &height, &nrChannels, 0);
   if (!texData) {
     std::cout << "Failed to load texture\n";
-    std::cout << "path: "<<texturePath<<"\n";
+    std::cout << "path: " << texturePath << "\n";
     exit(EXIT_FAILURE);
   }
 
@@ -110,8 +106,8 @@ void Mesh3D::draw(GLuint pipeline, const Camera &camera) {
   }
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::translate(model, transform.Translate);
-  //std::cout<<"Translate: "<<transform.Translate.x<<", "
-  //  <<transform.Translate.y<<", "<<transform.Translate.z<<"\n";
+  // std::cout<<"Translate: "<<transform.Translate.x<<", "
+  //   <<transform.Translate.y<<", "<<transform.Translate.z<<"\n";
   model = glm::rotate(model, glm::radians(transform.EulerAngles.x),
                       glm::vec3(1.0f, 0.0f, 0.0f));
   model = glm::rotate(model, glm::radians(transform.EulerAngles.y),

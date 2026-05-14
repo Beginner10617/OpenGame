@@ -20,6 +20,7 @@ public:
   void applyRotation(glm::vec3 eulerAngles);
   void applyTranslation(glm::vec3 translate);
   void applyScale(glm::vec3 scale);
+  std::vector<GLfloat> *getVdata();
 
 private:
   std::vector<GLfloat> vertexData;

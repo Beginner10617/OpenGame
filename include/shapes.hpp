@@ -4,12 +4,13 @@
 #include "model.hpp"
 // helper functions
 Mesh3D *regularPolyFace(unsigned int sides, glm::vec3 origin, glm::vec3 vertex0,
-    glm::vec3 normal, const char *tex);
-Mesh3D *regularPolyRim(unsigned int sides, float thickness, glm::vec3 origin, 
-    glm::vec3 vertex0, glm::vec3 normal, const char *tex);
-Mesh3D *meshFromFile(const char* filepath);
-Mesh3D *rimFromMesh(Mesh3D *mesh);
+                        glm::vec3 normal, const char *tex);
+Mesh3D *regularPolyRim(unsigned int sides, float thickness, glm::vec3 origin,
+                       glm::vec3 vertex0, glm::vec3 normal, const char *tex);
+Mesh3D *meshFromFile(const char *filepath);
+Mesh3D *rimFromMesh(std::vector<GLfloat> *vData, glm::vec3 normal,
+                    float thickness, const char *texture);
 
-//special shapes
+// special shapes
 Model *car();
 #endif
