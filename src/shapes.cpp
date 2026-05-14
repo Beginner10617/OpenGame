@@ -1,5 +1,11 @@
 #include "shapes.hpp"
 #include <cmath>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
 #define PI 3.14159265
 
 Mesh3D *regularPolyFace(unsigned int sides, glm::vec3 origin, glm::vec3 vertex0,
@@ -48,4 +54,66 @@ Mesh3D *regularPolyRim(unsigned int sides, float thickness, glm::vec3 origin,
       pnt2.x, pnt2.y, pnt2.z, 1.0f, 1.0f
       });
   return new Mesh3D{vData, iData, tex};
+}
+
+enum MeshSection {VERTEX, INDEX, TEXTURE, NONE};
+Mesh3D *meshFromFile(const char* filepath){
+  std::ifstream file(filepath);
+  if(!file){
+    std::cerr<<"Unable to open "<<filepath<<"\n";
+    exit(EXIT_FAILURE);
+  }
+  std::string line;
+  MeshSection section = NONE; std::string tex;
+  std::vector<GLfloat> vData; std::vector<GLuint> iData;
+  while(std::getline(file, line)){
+    if(line == "[VERTEX]"){
+      section = VERTEX; continue;
+    } else if (line == "[INDEX]"){
+      section = INDEX; continue;
+    } else if (line == "[TEXTURE]"){
+      section = TEXTURE; continue;
+    }
+
+    std::stringstream ss(line);
+    std::string num;
+    if(section == VERTEX){
+      while(std::getline(ss, num, ','))
+        vData.push_back(std::stof(num));
+    }else if(section == INDEX){
+      while(std::getline(ss, num, ','))
+        iData.push_back(std::stoi(num));
+    }else if(section == TEXTURE)
+      tex = line;
+  }
+  return new Mesh3D{vData, iData, tex.c_str()};
+}
+
+Model *car(){
+  Mesh3D *wheelside11 = regularPolyFace(10, glm::vec3(0.0f, 0.0f, -0.07f),
+                              glm::vec3(0.25f, 0.0f, -0.07f),
+                              glm::vec3(0.0f, 0.0f, -1.0f),
+                              "/Users/zain/openGL/textures/wheel-side.png");
+//  wheelside11->applyTranslation(glm::vec3(0.0f, 0.0f, -0.7f));
+
+  Mesh3D *wheelside12 = regularPolyFace(10, glm::vec3(0.0f, 0.0f, 0.07f),
+                              glm::vec3(0.25f, 0.0f, 0.07f),
+                              glm::vec3(0.0f, 0.0f, -1.0f),
+                              "/Users/zain/openGL/textures/wheel-side.png");
+//  wheelside12->applyTranslation(glm::vec3(0.0f, 0.0f, -0.7f));
+
+  Mesh3D *wheelrim1 = regularPolyRim(10, 0.14f, glm::vec3(0.0f, 0.0f, -0.07f),
+                              glm::vec3(0.25f, 0.0f, -0.07f), 
+                              glm::vec3(0.0f,0.0f, 1.0f),
+                              "/Users/zain/openGL/textures/wheel-top.png");
+//  wheelrim1->applyTranslation(glm::vec3(0.0f, 0.0f, -0.7f));
+
+  Mesh3D *car_side1 = meshFromFile("/Users/zain/openGL/meshes/car-side.txt");
+
+  Model *model = new Model();
+  model->addMesh(wheelside11);
+  model->addMesh(wheelside12);
+  model->addMesh(wheelrim1);
+  model->addMesh(car_side1);
+  return model;
 }

@@ -27,6 +27,7 @@ Mesh3D::Mesh3D(const std::vector<GLfloat> &vxData,
       stbi_load(texturePath, &width, &height, &nrChannels, 0);
   if (!texData) {
     std::cout << "Failed to load texture\n";
+    std::cout << "path: "<<texturePath<<"\n";
     exit(EXIT_FAILURE);
   }
 

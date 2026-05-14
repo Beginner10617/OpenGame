@@ -26,3 +26,9 @@ Mesh3D *Model::meshAt(size_t index) {
     return NULL;
   return meshes[index];
 }
+void Model::addModel(Model *model){
+  size_t n = model->size();
+  for(size_t i=0; i<n; i++){
+    addMesh(meshAt(i));
+  }
+}

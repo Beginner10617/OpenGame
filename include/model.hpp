@@ -12,6 +12,7 @@ public:
   void draw(GLuint pipeline, const Camera &camera);
   size_t size();
   Mesh3D *meshAt(size_t index);
+  void addModel(Model *model);
 
 private:
   std::vector<Mesh3D *> meshes;
