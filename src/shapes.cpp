@@ -90,23 +90,20 @@ Mesh3D *meshFromFile(const char* filepath){
 }
 
 Model *car(){
-  Mesh3D *wheelside11 = regularPolyFace(10, glm::vec3(0.0f, 0.0f, -0.07f),
-                              glm::vec3(0.25f, 0.0f, -0.07f),
+  Mesh3D *wheelside11 = regularPolyFace(10, glm::vec3(-1.15f, -0.27f, -0.07f),
+                              glm::vec3(-0.9f,-0.27f, -0.07f),
                               glm::vec3(0.0f, 0.0f, -1.0f),
                               "/Users/zain/openGL/textures/wheel-side.png");
-//  wheelside11->applyTranslation(glm::vec3(0.0f, 0.0f, -0.7f));
 
-  Mesh3D *wheelside12 = regularPolyFace(10, glm::vec3(0.0f, 0.0f, 0.07f),
-                              glm::vec3(0.25f, 0.0f, 0.07f),
+  Mesh3D *wheelside12 = regularPolyFace(10, glm::vec3(-1.15f, -0.27f, 0.07f),
+                              glm::vec3(-0.9f,-0.27f, 0.07f),
                               glm::vec3(0.0f, 0.0f, -1.0f),
                               "/Users/zain/openGL/textures/wheel-side.png");
-//  wheelside12->applyTranslation(glm::vec3(0.0f, 0.0f, -0.7f));
 
-  Mesh3D *wheelrim1 = regularPolyRim(10, 0.14f, glm::vec3(0.0f, 0.0f, -0.07f),
-                              glm::vec3(0.25f, 0.0f, -0.07f), 
+  Mesh3D *wheelrim1 = regularPolyRim(10, 0.14f, glm::vec3(-1.15f, -0.27f, -0.07f),
+                              glm::vec3(-0.9f,-0.27f, -0.07f), 
                               glm::vec3(0.0f,0.0f, 1.0f),
                               "/Users/zain/openGL/textures/wheel-top.png");
-//  wheelrim1->applyTranslation(glm::vec3(0.0f, 0.0f, -0.7f));
 
   Mesh3D *car_side1 = meshFromFile("/Users/zain/openGL/meshes/car-side.txt");
 

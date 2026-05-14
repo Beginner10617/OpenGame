@@ -10,7 +10,13 @@ void Mesh3D::applyRotation(glm::vec3 eulerAngles) {
   transform.EulerAngles += eulerAngles;
 }
 void Mesh3D::applyTranslation(glm::vec3 translate) {
+  std::cout << "Old tran: "<<(float)transform.Translate.x
+    <<", " << (float)transform.Translate.y << ", "
+    << (float)transform.Translate.z<<"\n";
   transform.Translate += translate;
+  std::cout << "New tran: "<<(float)transform.Translate.x
+    <<", " << (float)transform.Translate.y << ", "
+    << (float)transform.Translate.z<<"\n";
 }
 void Mesh3D::applyScale(glm::vec3 scale) { transform.Scale = scale; }
 
@@ -104,6 +110,8 @@ void Mesh3D::draw(GLuint pipeline, const Camera &camera) {
   }
   glm::mat4 model = glm::mat4(1.0f);
   model = glm::translate(model, transform.Translate);
+  //std::cout<<"Translate: "<<transform.Translate.x<<", "
+  //  <<transform.Translate.y<<", "<<transform.Translate.z<<"\n";
   model = glm::rotate(model, glm::radians(transform.EulerAngles.x),
                       glm::vec3(1.0f, 0.0f, 0.0f));
   model = glm::rotate(model, glm::radians(transform.EulerAngles.y),
