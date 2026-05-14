@@ -188,7 +188,7 @@ Model *car() {
 
   Mesh3D *car_rim =
       rimFromMesh(car_side1->getVdata(), glm::vec3(0.0f, 0.0f, 1.0f), 1.4,
-                  "/Users/zain/openGL/textures/car-side.png");
+                  "/Users/zain/openGL/textures/car-rim.png");
 
   Model *model = new Model();
   model->addMesh(wheelside11);
