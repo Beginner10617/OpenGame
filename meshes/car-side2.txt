@@ -11,4 +11,4 @@
 [INDEX]
 0,1,2, 0,2,7, 2,5,7, 2,3,4, 2,4,5, 5,6,7
 [TEXTURE]
-/Users/zain/openGL/textures/car-side.png
+/Users/zain/openGL/textures/car-side2.png
