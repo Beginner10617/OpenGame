@@ -9,7 +9,7 @@ class Game {
 public:
   Game(int screenwidth, int screenheight, const char *title);
   void CreateGraphicsPipeline(const char *vShader, const char *fShader);
-  void HandleInput();
+  void HandleInput(float deltaTime);
   void Update(float deltaTime);
   void Render();
   ~Game();

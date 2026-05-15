@@ -118,7 +118,6 @@ Mesh3D *rimFromMesh(std::vector<GLfloat> *vData, glm::vec3 normal,
   for (unsigned int i = 0; i < sides; i++) {
     u1 = cumulative[i] / totallength;
     u2 = cumulative[i + 1] / totallength;
-    std::cout << 2340 * u2 << "\n";
     pnt1 = glm::vec3((*vData)[i * 5], (*vData)[i * 5 + 1], (*vData)[i * 5 + 2]);
     pnt2 = (i == sides - 1)
                ? glm::vec3((*vData)[0], (*vData)[1], (*vData)[2])
@@ -133,8 +132,6 @@ Mesh3D *rimFromMesh(std::vector<GLfloat> *vData, glm::vec3 normal,
     ixData.insert(ixData.end(), {i * 4, i * 4 + 1, i * 4 + 2, i * 4 + 1,
                                  i * 4 + 2, i * 4 + 3});
   }
-  std::cout << "# of triangles: " << ixData.size() / 3 << "\n";
-  std::cout << "# of sides: " << sides << "\n";
   return new Mesh3D(vxData, ixData, tex);
 }
 

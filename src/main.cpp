@@ -5,11 +5,8 @@ int main() {
   Game game(1280, 720, "Game");
   game.CreateGraphicsPipeline("/Users/zain/openGL/shaders/vshader.glsl",
                               "/Users/zain/openGL/shaders/fshader.glsl");
-  //  Mesh3D mesh{{-0.5f, -0.5f, -5.0f, 0.0f,  0.0f, 0.5f,  -0.5f,
-  //               -5.0f, 1.0f,  0.0f,  0.5f,  0.5f, -5.0f, 1.0f,
-  //               1.0f,  -0.5f, 0.5f,  -5.0f, 0.0f, 1.0f},
-  //              {0, 1, 2, 2, 3, 0},
-  //              "/Users/zain/openGL/textures/stone-wall.jpg"};
+  const int FPS = 60;
+  const float frameDelay = 1000.0f / FPS;
 
   Model *model = car();
   game.addModel(model);
@@ -22,10 +19,9 @@ int main() {
     Uint32 currentTicks = frameStart;
     float deltaTime = (currentTicks - lastTicks) / 1000.0f;
     lastTicks = currentTicks;
-
-    model->applyRotn(glm::vec3(0.0f, 0.01f, 0.0f));
+    model->applyRotn(glm::vec3(0.0f, 30 * deltaTime, 0.0f));
     game.Render();
-    game.HandleInput();
+    game.HandleInput(deltaTime);
 
     // Frame Limiter
     Uint32 frameTime = SDL_GetTicks() - frameStart;

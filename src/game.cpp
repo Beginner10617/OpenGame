@@ -131,14 +131,14 @@ void Game::CreateGraphicsPipeline(const char *vShader, const char *fShader) {
   graphicsPipeline = CreateShaderProgram(v, f);
 }
 
-void Game::HandleInput() {
+void Game::HandleInput(float deltatime) {
   SDL_Event e;
   while (SDL_PollEvent(&e) != 0) {
     if (e.type == SDL_QUIT)
       isRunning = false;
   }
   const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-  float deltaX = 0.001f, deltaA = 0.01f;
+  float deltaX = 1.0f * deltatime, deltaA = 10.0f * deltatime;
   if (keystate[SDL_SCANCODE_W])
     camera.MoveForward(deltaX);
   if (keystate[SDL_SCANCODE_S])
