@@ -5,6 +5,7 @@
 #include "mesh.hpp"
 #include "model.hpp"
 #include <glad/glad.h>
+#include <unordered_map>
 class Game {
 public:
   Game(int screenwidth, int screenheight, const char *title);
@@ -27,5 +28,6 @@ private:
   GLuint graphicsPipeline;
   Camera camera;
   std::vector<Mesh3D *> meshes;
+  std::unordered_map<std::string, const char *> pathDictionary;
 };
 #endif

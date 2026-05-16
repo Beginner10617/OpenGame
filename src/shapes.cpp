@@ -138,71 +138,63 @@ Mesh3D *rimFromMesh(std::vector<GLfloat> *vData, glm::vec3 normal,
 Model *car() {
   Mesh3D *wheelside11 = regularPolyFace(
       10, glm::vec3(-1.15f, -0.27f, -0.77f), glm::vec3(-0.9f, -0.27f, -0.77f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
   Mesh3D *wheelside12 = regularPolyFace(
       10, glm::vec3(-1.15f, -0.27f, -0.63f), glm::vec3(-0.9f, -0.27f, -0.63f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
-  Mesh3D *wheelrim1 = regularPolyRim(
-      10, 0.14f, glm::vec3(-1.15f, -0.27f, -0.77f),
-      glm::vec3(-0.9f, -0.27f, -0.77f), glm::vec3(0.0f, 0.0f, 1.0f),
-      "/Users/zain/openGL/textures/wheel-top.png");
+  Mesh3D *wheelrim1 =
+      regularPolyRim(10, 0.14f, glm::vec3(-1.15f, -0.27f, -0.77f),
+                     glm::vec3(-0.9f, -0.27f, -0.77f),
+                     glm::vec3(0.0f, 0.0f, 1.0f), "textures/wheel-top.png");
 
   Mesh3D *wheelside21 = regularPolyFace(
       10, glm::vec3(1.04f, -0.27f, -0.77f), glm::vec3(1.29f, -0.27f, -0.77f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
   Mesh3D *wheelside22 = regularPolyFace(
       10, glm::vec3(1.04f, -0.27f, -0.63f), glm::vec3(1.29f, -0.27f, -0.63f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
-  Mesh3D *wheelrim2 = regularPolyRim(
-      10, 0.14f, glm::vec3(1.05f, -0.27f, -0.77f),
-      glm::vec3(1.29f, -0.27f, -0.77f), glm::vec3(0.0f, 0.0f, 1.0f),
-      "/Users/zain/openGL/textures/wheel-top.png");
+  Mesh3D *wheelrim2 =
+      regularPolyRim(10, 0.14f, glm::vec3(1.05f, -0.27f, -0.77f),
+                     glm::vec3(1.29f, -0.27f, -0.77f),
+                     glm::vec3(0.0f, 0.0f, 1.0f), "textures/wheel-top.png");
 
-  Mesh3D *car_side1 = meshFromFile("/Users/zain/openGL/meshes/car-side1.txt");
+  Mesh3D *car_side1 = meshFromFile("meshes/car-side1.txt");
 
   Mesh3D *wheelside31 = regularPolyFace(
       10, glm::vec3(1.04f, -0.27f, 0.77f), glm::vec3(1.29f, -0.27f, 0.77f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
   Mesh3D *wheelside32 = regularPolyFace(
       10, glm::vec3(1.04f, -0.27f, 0.63f), glm::vec3(1.29f, -0.27f, 0.63f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
-  Mesh3D *wheelrim3 = regularPolyRim(
-      10, 0.14f, glm::vec3(1.05f, -0.27f, 0.77f),
-      glm::vec3(1.29f, -0.27f, 0.77f), glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-top.png");
+  Mesh3D *wheelrim3 =
+      regularPolyRim(10, 0.14f, glm::vec3(1.05f, -0.27f, 0.77f),
+                     glm::vec3(1.29f, -0.27f, 0.77f),
+                     glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-top.png");
 
   Mesh3D *wheelside41 = regularPolyFace(
       10, glm::vec3(-1.15f, -0.27f, 0.77f), glm::vec3(-0.9f, -0.27f, 0.77f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
   Mesh3D *wheelside42 = regularPolyFace(
       10, glm::vec3(-1.15f, -0.27f, 0.63f), glm::vec3(-0.9f, -0.27f, 0.63f),
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-side.png");
+      glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
-  Mesh3D *wheelrim4 = regularPolyRim(
-      10, 0.14f, glm::vec3(-1.15f, -0.27f, 0.77f),
-      glm::vec3(-0.9f, -0.27f, 0.77f), glm::vec3(0.0f, 0.0f, -1.0f),
-      "/Users/zain/openGL/textures/wheel-top.png");
+  Mesh3D *wheelrim4 =
+      regularPolyRim(10, 0.14f, glm::vec3(-1.15f, -0.27f, 0.77f),
+                     glm::vec3(-0.9f, -0.27f, 0.77f),
+                     glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-top.png");
 
-  Mesh3D *car_side2 = meshFromFile("/Users/zain/openGL/meshes/car-side2.txt");
+  Mesh3D *car_side2 = meshFromFile("meshes/car-side2.txt");
 
   Mesh3D *car_rim =
       rimFromMesh(car_side1->getVdata(), glm::vec3(0.0f, 0.0f, 1.0f), 1.4,
-                  "/Users/zain/openGL/textures/car-rim.png");
+                  "textures/car-rim.png");
 
   Model *model = new Model();
   model->addMesh(wheelside11);
@@ -221,4 +213,17 @@ Model *car() {
   model->addMesh(car_side2);
   model->addMesh(car_rim);
   return model;
+}
+
+Mesh3D *ground(float yCoord, int x, int y, int width, int height,
+               const char *tex) {
+  float x0 = x - 0.5f;
+  float z0 = y - 0.5f;
+  float x1 = x0 + width;
+  float z1 = z0 + height;
+  return new Mesh3D({x0, yCoord, z0, 0.0f,         0.0f,
+                     x1, yCoord, z0, (float)width, 0.0f,
+                     x1, yCoord, z1, (float)width, (float)height,
+                     x0, yCoord, z1, 0.0f,         (float)height},
+                    {0, 1, 2, 0, 3, 2}, tex);
 }

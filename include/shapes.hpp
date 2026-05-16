@@ -13,4 +13,6 @@ Mesh3D *rimFromMesh(std::vector<GLfloat> *vData, glm::vec3 normal,
 
 // special shapes
 Model *car();
+Mesh3D *ground(float yCoord, int x, int y, int width, int height,
+              const char *tex);
 #endif

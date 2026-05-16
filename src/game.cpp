@@ -131,40 +131,6 @@ void Game::CreateGraphicsPipeline(const char *vShader, const char *fShader) {
   graphicsPipeline = CreateShaderProgram(v, f);
 }
 
-void Game::HandleInput(float deltatime) {
-  SDL_Event e;
-  while (SDL_PollEvent(&e) != 0) {
-    if (e.type == SDL_QUIT)
-      isRunning = false;
-  }
-  const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-  float deltaX = 1.0f * deltatime, deltaA = 10.0f * deltatime;
-  if (keystate[SDL_SCANCODE_W])
-    camera.MoveForward(deltaX);
-  if (keystate[SDL_SCANCODE_S])
-    camera.MoveBackward(deltaX);
-  if (keystate[SDL_SCANCODE_A])
-    camera.MoveLeft(deltaX);
-  if (keystate[SDL_SCANCODE_D])
-    camera.MoveRight(deltaX);
-  if (keystate[SDL_SCANCODE_Q])
-    camera.MoveUp(deltaX);
-  if (keystate[SDL_SCANCODE_E])
-    camera.MoveDown(deltaX);
-  if (keystate[SDL_SCANCODE_I] || keystate[SDL_SCANCODE_UP])
-    camera.TurnUp(deltaA);
-  if (keystate[SDL_SCANCODE_K] || keystate[SDL_SCANCODE_DOWN])
-    camera.TurnDown(deltaA);
-  if (keystate[SDL_SCANCODE_J] || keystate[SDL_SCANCODE_LEFT])
-    camera.TurnLeft(deltaA);
-  if (keystate[SDL_SCANCODE_L] || keystate[SDL_SCANCODE_RIGHT])
-    camera.TurnRight(deltaA);
-  if (keystate[SDL_SCANCODE_U])
-    camera.TwistLeft(deltaA);
-  if (keystate[SDL_SCANCODE_O])
-    camera.TwistRight(deltaA);
-}
-
 Game::~Game() {
   isRunning = false;
   glDeleteProgram(graphicsPipeline);
@@ -181,17 +147,4 @@ void Game::addModel(Model *model) {
   for (size_t i = 0; i < sz; i++) {
     addMesh(model->meshAt(i));
   }
-}
-
-// helprer functions
-void Game::Render() {
-  glViewport(0, 0, screenwidth, screenheight);
-  glClearColor(0.f, 0.f, 0.f, 1.f);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  for (auto mesh : meshes) {
-    mesh->draw(graphicsPipeline, camera);
-  }
-
-  SDL_GL_SwapWindow(window);
 }
