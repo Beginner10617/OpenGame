@@ -54,8 +54,10 @@ glm::vec3 directionToEuler(glm::vec3 from, glm::vec3 to) {
 }
 void Car::handleInput(Input input) {
   glm::vec3 right = glm::cross(rigidbody.getForward(), rigidbody.getUp());
+  float mag = input.power;
+  if(mag < 10.0f && std::abs(input.steeringAngle) > 1.0f) mag = 10.0f;
   rigidbody.applyForce(
-      input.power *
+      mag *
       (rigidbody.getForward() * std::cos(glm::radians(input.steeringAngle)) +
        right * std::sin(glm::radians(input.steeringAngle))));
 }

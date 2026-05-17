@@ -1,3 +1,4 @@
+#include <iostream>
 #include "game.hpp"
 void Game::HandleInput(float deltatime) {
   SDL_Event e;
@@ -6,7 +7,6 @@ void Game::HandleInput(float deltatime) {
       isRunning = false;
   }
   const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-  float deltaX = 1.0f * deltatime, deltaA = 10.0f * deltatime;
   Input input{0.0f, 0.0f};
   if (keystate[SDL_SCANCODE_UP]) {
     input.power += 10.0f;
@@ -15,35 +15,24 @@ void Game::HandleInput(float deltatime) {
     input.power -= 10.0f;
   }
   if (keystate[SDL_SCANCODE_LEFT]) {
-    input.steeringAngle += 45.0f;
+    input.steeringAngle -= 90.0f;
   }
   if (keystate[SDL_SCANCODE_RIGHT]) {
-    input.steeringAngle -= 45.0f;
+    input.steeringAngle += 90.0f;
   }
   player->handleInput(input);
+  camera.Eye = player->rigidbody.getPosition() +
+    player->rigidbody.getForward() * -3.5f +
+    player->rigidbody.getUp() * 0.5f;
 
-  if (keystate[SDL_SCANCODE_W])
-    camera.MoveForward(deltaX);
-  if (keystate[SDL_SCANCODE_S])
-    camera.MoveBackward(deltaX);
-  if (keystate[SDL_SCANCODE_A])
-    camera.MoveLeft(deltaX);
-  if (keystate[SDL_SCANCODE_D])
-    camera.MoveRight(deltaX);
-  if (keystate[SDL_SCANCODE_Q])
-    camera.MoveUp(deltaX);
-  if (keystate[SDL_SCANCODE_E])
-    camera.MoveDown(deltaX);
-  if (keystate[SDL_SCANCODE_I])
-    camera.TurnUp(deltaA);
-  if (keystate[SDL_SCANCODE_K])
-    camera.TurnDown(deltaA);
-  if (keystate[SDL_SCANCODE_J])
-    camera.TurnLeft(deltaA);
-  if (keystate[SDL_SCANCODE_L])
-    camera.TurnRight(deltaA);
-  if (keystate[SDL_SCANCODE_U])
-    camera.TwistLeft(deltaA);
-  if (keystate[SDL_SCANCODE_O])
-    camera.TwistRight(deltaA);
+  // friction
+  float maxFriction = 2.0f;
+  if(glm::length(player->rigidbody.getSpeed()) > 1e-1){
+    player->rigidbody.applyForce(maxFriction *
+      -glm::normalize(player->rigidbody.getForward()));
+    player->rigidbody.stationary = false;}
+  else if (!player->rigidbody.stationary) {
+    std::cout << "stopping\n";
+    player->rigidbody.stop();
+  }
 }

@@ -21,7 +21,7 @@ class Car {
 public:
   Car(glm::vec3 spawnPoint, glm::vec2 direction);
   void preDraw();
-  Rigidbody rigidbody{10.0f, 1000.0f};
+  Rigidbody rigidbody{10.0f};
   void handleInput(Input input);
 
   Model *carBody;
