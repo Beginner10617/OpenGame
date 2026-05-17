@@ -7,11 +7,8 @@ int main() {
   const int FPS = 60;
   const float frameDelay = 1000.0f / FPS;
   Car car1{glm::vec3(0.0f,0.0f,-5.5f), glm::vec2(0.0f,-1.0f), game};
-//  Model *carmodel = car();
   Mesh3D *grnd = ground(-0.5f, -10, -10, 20, 20, "textures/ground_texture.jpg");
-//  game.addModel(carmodel);
   game.addMesh(grnd);
-//  carmodel->applyTranslation(glm::vec3(0.0f, 0.0f, -5.5f));
   Uint32 lastTicks = SDL_GetTicks();
   while (game.getIsRunning()) {
     Uint32 frameStart = SDL_GetTicks();

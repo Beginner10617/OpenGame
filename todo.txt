@@ -1,2 +1,4 @@
-rigidbody.cpp
-car.cpp
+in physics.hpp:
+(1) Collider struct - box colliders for now
+(2) Rigidbody - Momentum + force data ONLY. Position update done manually in Car class
+(3) A static PhysicsEngine class to apply gravity, compute collisions for all bodies
