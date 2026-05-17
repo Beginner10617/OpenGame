@@ -3,6 +3,7 @@
 #include "game.hpp"
 #include "mesh.hpp"
 #include "model.hpp"
+#include "physics.hpp"
 // helper functions
 Mesh3D *regularPolyFace(unsigned int sides, glm::vec3 origin, glm::vec3 vertex0,
                         glm::vec3 normal, const char *tex);
@@ -17,11 +18,11 @@ class Car {
 public:
   Car(glm::vec3 spawnPoint, glm::vec2 direction, Game &game);
   void preDraw();
+  Rigidbody rigidbody{10.0f, 10.0f};
 
 private:
   Model *carBody;
   Model *wheels[4];
-  glm::vec3 forward, up, position;
 };
 Mesh3D *ground(float yCoord, int x, int y, int width, int height,
                const char *tex);

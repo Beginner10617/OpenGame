@@ -1,9 +1,9 @@
 #define GLM_ENABLE_EXPERIMENTAL
-#include <iostream>
 #include "shapes.hpp"
-#include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/euler_angles.hpp>
-Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, Game& game) {
+#include <glm/gtx/quaternion.hpp>
+#include <iostream>
+Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, Game &game) {
   for (size_t i = 0; i < 4; i++) {
     Mesh3D *wheelside1 = regularPolyFace(
         10, glm::vec3(0.0f, 0.0f, -0.07f), glm::vec3(-0.25f, 0.0f, -0.07f),
@@ -13,9 +13,10 @@ Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, Game& game) {
         10, glm::vec3(0.0f, 0.0f, 0.07f), glm::vec3(-0.25f, 0.0f, 0.07f),
         glm::vec3(0.0f, 0.0f, -1.0f), "textures/wheel-side.png");
 
-    Mesh3D *wheelrim = regularPolyRim(
-        10, 0.14f, glm::vec3(0.0f, 0.0f, -0.07f), glm::vec3(0.25f, 0.0f, -0.07f),
-        glm::vec3(0.0f, 0.0f, 1.0f), "textures/wheel-top.png");
+    Mesh3D *wheelrim =
+        regularPolyRim(10, 0.14f, glm::vec3(0.0f, 0.0f, -0.07f),
+                       glm::vec3(0.25f, 0.0f, -0.07f),
+                       glm::vec3(0.0f, 0.0f, 1.0f), "textures/wheel-top.png");
 
     Model *wheel = new Model();
     wheel->addMesh(wheelside1);
@@ -39,9 +40,9 @@ Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, Game& game) {
   model->addMesh(car_rim);
   game.addModel(model);
   carBody = model;
-  position = spawnPoint;
-  forward = glm::vec3(direction.x, 0.0f, direction.y);
-  up = glm::vec3(0.0f, 1.0f, 0.0f);
+  rigidbody.setPosition(spawnPoint);
+  rigidbody.setForward(glm::vec3(direction.x, 0.0f, direction.y));
+  rigidbody.setUp(glm::vec3(0.0f, 1.0f, 0.0f));
 }
 glm::vec3 directionToEuler(glm::vec3 from, glm::vec3 to) {
   from = glm::normalize(from);
@@ -55,34 +56,23 @@ glm::vec3 directionToEuler(glm::vec3 from, glm::vec3 to) {
 }
 
 void Car::preDraw() {
-  glm::vec3 rotn = directionToEuler(glm::vec3(-1.0f, 0.0f, 0.0f), forward);
+  glm::vec3 rotn =
+      directionToEuler(glm::vec3(-1.0f, 0.0f, 0.0f), rigidbody.getForward());
   carBody->reset();
   carBody->applyRotn(rotn);
-  carBody->applyTranslation(position);
-  for (int i = 0; i < 4; i++){
+  carBody->applyTranslation(rigidbody.getPosition());
+  for (int i = 0; i < 4; i++) {
     wheels[i]->reset();
     wheels[i]->applyRotn(rotn);
-    wheels[i]->applyTranslation(position);
+    wheels[i]->applyTranslation(rigidbody.getPosition());
   }
-  glm::vec3 right = glm::cross(forward, up);
-  wheels[0]->applyTranslation(
-    forward * 1.15f +
-    up * -0.27f +
-    right * 0.7f
-  );
-  wheels[1]->applyTranslation(
-    forward * 1.15f +
-    up * -0.27f +
-    right * -0.7f
-  );
-  wheels[2]->applyTranslation(
-    forward * -1.04f +
-    up * -0.27f +
-    right * 0.7f
-  );
-  wheels[3]->applyTranslation(
-    forward * -1.04f +
-    up * -0.27f +
-    right * -0.7f
-  );
+  glm::vec3 right = glm::cross(rigidbody.getForward(), rigidbody.getUp());
+  wheels[0]->applyTranslation(rigidbody.getForward() * 1.15f +
+                              rigidbody.getUp() * -0.27f + right * 0.7f);
+  wheels[1]->applyTranslation(rigidbody.getForward() * 1.15f +
+                              rigidbody.getUp() * -0.27f + right * -0.7f);
+  wheels[2]->applyTranslation(rigidbody.getForward() * -1.04f +
+                              rigidbody.getUp() * -0.27f + right * 0.7f);
+  wheels[3]->applyTranslation(rigidbody.getForward() * -1.04f +
+                              rigidbody.getUp() * -0.27f + right * -0.7f);
 }
