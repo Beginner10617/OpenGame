@@ -7,6 +7,21 @@ void Game::HandleInput(float deltatime) {
   }
   const Uint8 *keystate = SDL_GetKeyboardState(NULL);
   float deltaX = 1.0f * deltatime, deltaA = 10.0f * deltatime;
+  Input input{0.0f, 0.0f};
+  if (keystate[SDL_SCANCODE_UP]) {
+    input.power += 10.0f;
+  }
+  if (keystate[SDL_SCANCODE_DOWN]) {
+    input.power -= 10.0f;
+  }
+  if (keystate[SDL_SCANCODE_LEFT]) {
+    input.steeringAngle += 45.0f;
+  }
+  if (keystate[SDL_SCANCODE_RIGHT]) {
+    input.steeringAngle -= 45.0f;
+  }
+  player->handleInput(input);
+
   if (keystate[SDL_SCANCODE_W])
     camera.MoveForward(deltaX);
   if (keystate[SDL_SCANCODE_S])
@@ -19,13 +34,13 @@ void Game::HandleInput(float deltatime) {
     camera.MoveUp(deltaX);
   if (keystate[SDL_SCANCODE_E])
     camera.MoveDown(deltaX);
-  if (keystate[SDL_SCANCODE_I] || keystate[SDL_SCANCODE_UP])
+  if (keystate[SDL_SCANCODE_I])
     camera.TurnUp(deltaA);
-  if (keystate[SDL_SCANCODE_K] || keystate[SDL_SCANCODE_DOWN])
+  if (keystate[SDL_SCANCODE_K])
     camera.TurnDown(deltaA);
-  if (keystate[SDL_SCANCODE_J] || keystate[SDL_SCANCODE_LEFT])
+  if (keystate[SDL_SCANCODE_J])
     camera.TurnLeft(deltaA);
-  if (keystate[SDL_SCANCODE_L] || keystate[SDL_SCANCODE_RIGHT])
+  if (keystate[SDL_SCANCODE_L])
     camera.TurnRight(deltaA);
   if (keystate[SDL_SCANCODE_U])
     camera.TwistLeft(deltaA);

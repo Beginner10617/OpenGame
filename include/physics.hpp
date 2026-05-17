@@ -12,6 +12,7 @@ public:
   glm::vec3 getUp();
   void applyForce(glm::vec3 force, glm::vec3 pointOfApp = glm::vec3(0.0f));
   void update(float dt);
+  void applyTorque(glm::vec3 tau);
 
 private:
   glm::vec3 position, forward, up;

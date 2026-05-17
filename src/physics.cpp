@@ -1,6 +1,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "physics.hpp"
 #include <glm/gtx/rotate_vector.hpp>
+#include <iostream>
 
 Rigidbody::Rigidbody(float Mass, float MomentOfInertia) {
   mass = Mass;
@@ -21,6 +22,7 @@ void Rigidbody::applyForce(glm::vec3 force, glm::vec3 pointOfApp) {
   netForce += force;
   netTorque += glm::cross(pointOfApp, force);
 }
+void Rigidbody::applyTorque(glm::vec3 tau) { netTorque += tau; }
 void Rigidbody::update(float dt) {
   velocity += netForce * dt / mass;
   if (glm::length(velocity) > maxVel)
