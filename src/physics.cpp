@@ -5,6 +5,8 @@
 Rigidbody::Rigidbody(float Mass, float MomentOfInertia) {
   mass = Mass;
   momentOfInertia = MomentOfInertia;
+  maxVel = 100.0f;
+  maxAngVel = 90.0f;
 }
 
 void Rigidbody::setPosition(glm::vec3 posn) { position = posn; }
@@ -21,7 +23,11 @@ void Rigidbody::applyForce(glm::vec3 force, glm::vec3 pointOfApp) {
 }
 void Rigidbody::update(float dt) {
   velocity += netForce * dt / mass;
+  if (glm::length(velocity) > maxVel)
+    velocity = maxVel * glm::normalize(velocity);
   angVelocity += netTorque * dt / momentOfInertia;
+  if (glm::length(angVelocity) > maxAngVel)
+    angVelocity = maxAngVel * glm::normalize(angVelocity);
   netForce = glm::vec3(0.0f);
   netTorque = glm::vec3(0.0f);
 

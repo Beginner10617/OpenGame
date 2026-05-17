@@ -4,6 +4,7 @@
 #include "camera.hpp"
 #include "mesh.hpp"
 #include "model.hpp"
+#include "shapes.hpp"
 #include <glad/glad.h>
 #include <unordered_map>
 class Game {
@@ -29,5 +30,6 @@ private:
   Camera camera;
   std::vector<Mesh3D *> meshes;
   std::unordered_map<std::string, const char *> pathDictionary;
+  Car *player;
 };
 #endif

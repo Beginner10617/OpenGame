@@ -17,6 +17,6 @@ private:
   glm::vec3 position, forward, up;
   glm::vec3 netForce, netTorque;
   glm::vec3 velocity, angVelocity;
-  float mass, momentOfInertia;
+  float mass, momentOfInertia, maxVel, maxAngVel;
 };
 #endif

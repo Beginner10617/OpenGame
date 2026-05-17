@@ -3,7 +3,7 @@
 #include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <iostream>
-Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, Game &game) {
+Car::Car(glm::vec3 spawnPoint, glm::vec2 direction) {
   for (size_t i = 0; i < 4; i++) {
     Mesh3D *wheelside1 = regularPolyFace(
         10, glm::vec3(0.0f, 0.0f, -0.07f), glm::vec3(-0.25f, 0.0f, -0.07f),
@@ -23,7 +23,6 @@ Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, Game &game) {
     wheel->addMesh(wheelside2);
     wheel->addMesh(wheelrim);
     wheels[i] = wheel;
-    game.addModel(wheels[i]);
   }
 
   Mesh3D *car_side1 = meshFromFile("meshes/car-side1.txt");
@@ -38,7 +37,6 @@ Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, Game &game) {
   model->addMesh(car_side1);
   model->addMesh(car_side2);
   model->addMesh(car_rim);
-  game.addModel(model);
   carBody = model;
   rigidbody.setPosition(spawnPoint);
   rigidbody.setForward(glm::vec3(direction.x, 0.0f, direction.y));
@@ -54,7 +52,14 @@ glm::vec3 directionToEuler(glm::vec3 from, glm::vec3 to) {
 
   return glm::degrees(euler);
 }
-
+void Car::handleInput(Input input) {
+  glm::vec3 right = glm::cross(rigidbody.getForward(), rigidbody.getUp());
+  rigidbody.applyForce(
+      input.power * (rigidbody.getForward() *
+                         std::cos(glm::radians(input.steeringAngle)) +
+                     right * std::sin(glm::radians(input.steeringAngle))),
+      glm::vec3(-1.04f, -0.27f, 0.0f));
+}
 void Car::preDraw() {
   glm::vec3 rotn =
       directionToEuler(glm::vec3(-1.0f, 0.0f, 0.0f), rigidbody.getForward());

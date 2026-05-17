@@ -1,6 +1,5 @@
 #ifndef SHAPES_HPP
 #define SHAPES_HPP
-#include "game.hpp"
 #include "mesh.hpp"
 #include "model.hpp"
 #include "physics.hpp"
@@ -14,13 +13,17 @@ Mesh3D *rimFromMesh(std::vector<GLfloat> *vData, glm::vec3 normal,
                     float thickness, const char *texture);
 
 // special shapes
+struct Input {
+  float steeringAngle;
+  float power;
+};
 class Car {
 public:
-  Car(glm::vec3 spawnPoint, glm::vec2 direction, Game &game);
+  Car(glm::vec3 spawnPoint, glm::vec2 direction);
   void preDraw();
   Rigidbody rigidbody{10.0f, 10.0f};
+  void handleInput(Input input);
 
-private:
   Model *carBody;
   Model *wheels[4];
 };
