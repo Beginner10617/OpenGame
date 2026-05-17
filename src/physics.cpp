@@ -13,6 +13,7 @@ void Rigidbody::setPosition(glm::vec3 posn) { position = posn; }
 void Rigidbody::setForward(glm::vec3 fwd) { forward = fwd; }
 void Rigidbody::setUp(glm::vec3 Up) { up = Up; }
 
+glm::vec3 Rigidbody::getVelocity(){return velocity;};
 glm::vec3 Rigidbody::getPosition() { return position; }
 glm::vec3 Rigidbody::getForward() { return forward; }
 glm::vec3 Rigidbody::getUp() { return up; }

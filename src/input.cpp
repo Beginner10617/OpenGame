@@ -22,17 +22,11 @@ void Game::HandleInput(float deltatime) {
   }
   player->handleInput(input);
   camera.Eye = player->rigidbody.getPosition() +
-    player->rigidbody.getForward() * -3.5f +
-    player->rigidbody.getUp() * 0.5f;
+    player->rigidbody.getForward() * -2.5f +
+    player->rigidbody.getUp() * 1.35f;
+  camera.forwardDirection = player->rigidbody.getForward();
+  camera.forwardDirection.y=0.0f;
+  camera.upDirection = glm::vec3(0.0f,1.0f, 0.0f);
+  camera.TurnDown(20.0f);
 
-  // friction
-  float maxFriction = 2.0f;
-  if(glm::length(player->rigidbody.getSpeed()) > 1e-1){
-    player->rigidbody.applyForce(maxFriction *
-      -glm::normalize(player->rigidbody.getForward()));
-    player->rigidbody.stationary = false;}
-  else if (!player->rigidbody.stationary) {
-    std::cout << "stopping\n";
-    player->rigidbody.stop();
-  }
 }

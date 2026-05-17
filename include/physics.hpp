@@ -10,6 +10,7 @@ public:
   glm::vec3 getPosition();
   glm::vec3 getForward();
   glm::vec3 getUp();
+  glm::vec3 getVelocity();
   float getSpeed();
   void applyForce(glm::vec3 force);
   void update(float dt);
