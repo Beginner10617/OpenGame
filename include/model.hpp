@@ -13,6 +13,7 @@ public:
   size_t size();
   Mesh3D *meshAt(size_t index);
   void addModel(Model *model);
+  void reset();
 
 private:
   std::vector<Mesh3D *> meshes;

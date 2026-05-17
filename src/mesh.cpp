@@ -6,6 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 void Mesh3D::updateTransform(const Transform &trnsfrm) { transform = trnsfrm; }
+void Mesh3D::reset(){
+  transform.Translate=glm::vec3(0.0f); 
+  transform.EulerAngles=glm::vec3(0.0f);
+  transform.Scale = glm::vec3(1.0f);
+}
 Transform Mesh3D::getTransform() { return transform; }
 void Mesh3D::applyRotation(glm::vec3 eulerAngles) {
   transform.EulerAngles += eulerAngles;

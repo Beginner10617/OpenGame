@@ -15,6 +15,10 @@ void Model::applyScale(glm::vec3 scale) {
     mesh->applyScale(scale);
   }
 }
+void Model::reset(){
+  for(auto mesh: meshes)
+    mesh->reset();
+}
 void Model::draw(GLuint pipeline, const Camera &camera) {
   for (auto mesh : meshes) {
     mesh->draw(pipeline, camera);
