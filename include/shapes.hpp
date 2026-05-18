@@ -19,13 +19,16 @@ struct Input {
 };
 class Car {
 public:
-  Car(glm::vec3 spawnPoint, glm::vec2 direction);
+  Car(glm::vec3 spawnPoint, glm::vec2 direction, float steer = 2.5f);
   void preDraw();
   Rigidbody rigidbody{10.0f};
   void handleInput(Input input);
 
   Model *carBody;
   Model *wheels[4];
+
+private:
+  float steeringPower; // stat
 };
 Mesh3D *ground(float yCoord, int x, int y, int width, int height,
                const char *tex);

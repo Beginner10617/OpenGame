@@ -10,9 +10,10 @@ struct Tile {
 class Map {
 public:
   Map(std::map<std::pair<int, int>, char> &map, const char *atlasTexture,
-      std::map<char, struct Tile> &tileInfo, float groundy = 0.0f);
+      std::map<char, struct Tile> &tileInfo, float groundy = 0.0f,
+      float scale = 1.0f);
   Mesh3D *getMesh();
-  Map(const char* file, float groundy=0.0f);
+  Map(const char *file, float groundy = 0.0f, float scale = 1.0f);
 
 private:
   Mesh3D *mesh;

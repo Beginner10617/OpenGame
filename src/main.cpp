@@ -8,7 +8,7 @@ int main() {
   const int FPS = 60;
   const float frameDelay = 1000.0f / FPS;
 
-  Map map{"levels/level-1.txt", -0.5f};
+  Map map{"levels/level-1.txt", -0.5f, 4.0f};
 
   Mesh3D *grnd = map.getMesh();
 

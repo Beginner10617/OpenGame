@@ -3,7 +3,8 @@
 #include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <iostream>
-Car::Car(glm::vec3 spawnPoint, glm::vec2 direction) {
+Car::Car(glm::vec3 spawnPoint, glm::vec2 direction, float Steer) {
+  steeringPower = Steer;
   for (size_t i = 0; i < 4; i++) {
     Mesh3D *wheelside1 = regularPolyFace(
         10, glm::vec3(0.0f, 0.0f, -0.07f), glm::vec3(-0.25f, 0.0f, -0.07f),
@@ -53,27 +54,27 @@ glm::vec3 directionToEuler(glm::vec3 from, glm::vec3 to) {
   return glm::degrees(euler);
 }
 void Car::handleInput(const Input input) {
-    glm::vec3 velocity = rigidbody.getVelocity();
-    float speed = glm::length(velocity);
+  glm::vec3 velocity = rigidbody.getVelocity();
+  float speed = glm::length(velocity);
 
-    glm::vec3 dir;
+  glm::vec3 dir =
+      speed > 0.1f ? glm::normalize(velocity) : rigidbody.getForward();
 
-    if(speed > 0.1f) {
-        dir = glm::normalize(velocity);
-    } else {
-        dir = rigidbody.getForward();
-    }
+  glm::vec3 up = rigidbody.getUp();
+  glm::vec3 right = glm::normalize(glm::cross(dir, up));
 
-    glm::vec3 up = rigidbody.getUp();
-    glm::vec3 right = glm::normalize(glm::cross(dir, up));
+  float angle = glm::radians(input.steeringAngle);
 
-    float angle = glm::radians(input.steeringAngle);
+  glm::vec3 desiredDir =
+      glm::normalize(dir * std::cos(angle) + right * std::sin(angle));
 
-    glm::vec3 desiredDir =
-        dir * std::cos(angle) +
-        right * std::sin(angle);
+  rigidbody.applyForce(desiredDir * input.power);
 
-    rigidbody.applyForce(desiredDir * input.power);
+  if (speed > 0.1f && std::abs(input.steeringAngle) > 0.01f) {
+    glm::vec3 steerForce = (desiredDir - dir) * speed * steeringPower;
+
+    rigidbody.applyForce(steerForce);
+  }
 }
 void Car::preDraw() {
   glm::vec3 rotn =
