@@ -122,7 +122,7 @@ Game::Game(int width, int height, const char *title) {
   isRunning = true;
 
   // adding player
-  Car *car = new Car(glm::vec3(0.0f, 0.0f, -5.5f), glm::vec2(0.0f, -1.0f));
+  Car *car = new Car(glm::vec3(5.0f, 0.0f, 5.5f), glm::vec2(0.0f, -1.0f));
   this->addModel(car->carBody);
   for (int i = 0; i < 4; i++)
     this->addModel(car->wheels[i]);

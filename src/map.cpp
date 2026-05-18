@@ -16,7 +16,6 @@ Map::Map(std::map<std::pair<int, int>, char> &map, const char *atlasTexture,
     z0 = coord.second - 0.5f;
     z1 = coord.second + 0.5f;
     tileI = tileInfo[tile];
-    std::cout <<tile;
     tileuvMin = tileI.uvMin;
     tileuvMax = tileI.uvMax;
     vData.insert(vData.end(), {
