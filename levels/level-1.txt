@@ -1,0 +1,29 @@
+[ATLASDIM]
+2 1
+[ATLASFILE]
+textures/atlas.png
+[MAPDATA]
+G G G G G G G G G G G G G G G G G G G G
+G R R R R R R R R R R R R R R R R R R G
+G R R R R R R R R R R R R R R R R R R G 
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G 
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G 
+G R R G G G G G G G G G G G G G G R R G 
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G 
+G R R G G G G G G G G G G G G G G R R G 
+G R R G G G G G G G G G G G G G G R R G 
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G
+G R R G G G G G G G G G G G G G G R R G
+G R R R R R R R R R R R R R R R R R R G
+G R R R R R R R R R R R R R R R R R R G
+G G G G G G G G G G G G G G G G G G G G
+[TILEINFO]
+R 0 0
+G 1 0
