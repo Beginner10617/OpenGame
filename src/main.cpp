@@ -9,13 +9,13 @@ int main() {
   const float frameDelay = 1000.0f / FPS;
   
   std::map<std::pair<int, int>, char> mData;
-  mData[{0,0}]='R';
-  mData[{0,1}]='R';
-  mData[{1,0}]='R';
-  mData[{1,1}]='R';
+  mData[{0,0}]='G';
+  mData[{0,1}]='G';
+  mData[{1,0}]='G';
+  mData[{1,1}]='G';
   std::map<char, struct Tile> tileInfo;
-  tileInfo['R']={glm::vec2(0.0f,0.0f), glm::vec2(1.0f, 0.5f)};
-  Map map{mData, "textures/atlas.png",tileInfo, -2.5f};
+  tileInfo['G']={glm::vec2(0.5f,0.0f), glm::vec2(1.0f, 1.0f)};
+  Map map{"levels/level-1.txt", -2.5f};
   
   Mesh3D *grnd = map.getMesh();
 

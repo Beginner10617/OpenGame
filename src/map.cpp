@@ -42,7 +42,7 @@ enum MapSection {
   ATLASDIM,
   ATLASFILE,
 };
-/*
+
 Map::Map(const char* filepath, float groundy){
   std::ifstream file(filepath);
   if(file.fail()){
@@ -126,4 +126,3 @@ Map::Map(const char* filepath, float groundy){
   }
   *this = Map(map, atlasTexture.c_str(), tileInfo, groundy);
 }
-*/
