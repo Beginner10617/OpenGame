@@ -1,6 +1,6 @@
-#include <iostream>
 #include "game.hpp"
-void Game::HandleInput(float deltatime) {
+#include <iostream>
+void Game::HandleInput() {
   SDL_Event e;
   while (SDL_PollEvent(&e) != 0) {
     if (e.type == SDL_QUIT)
@@ -22,11 +22,10 @@ void Game::HandleInput(float deltatime) {
   }
   player->handleInput(input);
   camera.Eye = player->rigidbody.getPosition() +
-    player->rigidbody.getForward() * -2.5f +
-    player->rigidbody.getUp() * 1.35f;
+               player->rigidbody.getForward() * -2.5f +
+               player->rigidbody.getUp() * 1.35f;
   camera.forwardDirection = player->rigidbody.getForward();
-  camera.forwardDirection.y=0.0f;
-  camera.upDirection = glm::vec3(0.0f,1.0f, 0.0f);
+  camera.forwardDirection.y = 0.0f;
+  camera.upDirection = glm::vec3(0.0f, 1.0f, 0.0f);
   camera.TurnDown(20.0f);
-
 }

@@ -147,11 +147,17 @@ Game::~Game() {
 }
 
 bool Game::getIsRunning() { return isRunning; }
-void Game::addMesh(Mesh3D *mesh) { meshes.push_back(mesh); }
+size_t Game::addMesh(Mesh3D *mesh) {
+  size_t out = meshes.size();
+  meshes.push_back(mesh);
+  return out;
+}
 void Game::clearMeshes() { meshes.clear(); }
-void Game::addModel(Model *model) {
+size_t Game::addModel(Model *model) {
+  size_t out = meshes.size();
   size_t sz = model->size();
   for (size_t i = 0; i < sz; i++) {
     addMesh(model->meshAt(i));
   }
+  return out;
 }

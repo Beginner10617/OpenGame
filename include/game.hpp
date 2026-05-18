@@ -11,14 +11,15 @@ class Game {
 public:
   Game(int screenwidth, int screenheight, const char *title);
   void CreateGraphicsPipeline(const char *vShader, const char *fShader);
-  void HandleInput(float deltaTime);
+  void HandleInput();
   void Update(float deltaTime);
   void Render();
   ~Game();
   bool getIsRunning();
-  void addMesh(Mesh3D *mesh);
+  size_t addMesh(Mesh3D *mesh);
   void clearMeshes();
-  void addModel(Model *model);
+  size_t addModel(Model *model);
+  void removeMesh(size_t index);
 
 private:
   int screenwidth;

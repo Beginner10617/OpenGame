@@ -18,7 +18,7 @@ int main() {
     float deltaTime = (currentTicks - lastTicks) / 1000.0f;
     lastTicks = currentTicks;
     game.Render();
-    game.HandleInput(deltaTime);
+    game.HandleInput();
     game.Update(deltaTime);
 
     // Frame Limiter
