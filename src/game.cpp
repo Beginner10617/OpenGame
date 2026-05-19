@@ -161,3 +161,19 @@ size_t Game::addModel(Model *model) {
   }
   return out;
 }
+
+std::pair<int, int> Game::getPlayerBlock() {
+  float x = player->rigidbody.getPosition().x / mapscale,
+        y = player->rigidbody.getPosition().z / mapscale;
+  int X = x, Y = y;
+  if (x - (float)X > 0.5f)
+    X++;
+  if (y - (float)Y > 0.5f)
+    Y++;
+  return std::make_pair(X, Y);
+}
+void Game::setMapData(std::map<std::pair<int, int>, char> &data, float scale) {
+  mapData = data;
+  mapscale = scale;
+}
+char Game::tileBelowPlayer() { return mapData[getPlayerBlock()]; }

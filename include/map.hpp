@@ -15,6 +15,8 @@ public:
   Mesh3D *getMesh();
   Map(const char *file, float groundy = 0.0f, float scale = 1.0f);
 
+  std::map<std::pair<int, int>, char> data;
+
 private:
   Mesh3D *mesh;
 };

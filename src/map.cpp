@@ -5,6 +5,7 @@
 #include <iostream>
 Map::Map(std::map<std::pair<int, int>, char> &map, const char *atlasTexture,
          std::map<char, struct Tile> &tileInfo, float groundy, float scale) {
+  data = map;
   std::vector<GLfloat> vData;
   std::vector<GLuint> iData;
   float x0, x1, z0, z1;

@@ -6,6 +6,7 @@
 #include "model.hpp"
 #include "shapes.hpp"
 #include <glad/glad.h>
+#include <map>
 #include <unordered_map>
 class Game {
 public:
@@ -20,6 +21,10 @@ public:
   void clearMeshes();
   size_t addModel(Model *model);
   void removeMesh(size_t index);
+  std::pair<int, int> getPlayerBlock();
+  void setMapData(std::map<std::pair<int, int>, char> &data,
+                  float scale = 1.0f);
+  char tileBelowPlayer();
 
 private:
   int screenwidth;
@@ -30,7 +35,8 @@ private:
   GLuint graphicsPipeline;
   Camera camera;
   std::vector<Mesh3D *> meshes;
-  std::unordered_map<std::string, const char *> pathDictionary;
+  std::map<std::pair<int, int>, char> mapData;
+  float mapscale;
   Car *player;
 };
 #endif

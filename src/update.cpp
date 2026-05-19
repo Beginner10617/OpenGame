@@ -1,10 +1,11 @@
 #include "game.hpp"
+#include <iostream>
 void Game::Update(float dt) {
 
   player->rigidbody.update(dt);
 
   // friction
-  float maxFriction = 2.0f;
+  float maxFriction = tileBelowPlayer() == 'R' ? 2.0f : 7.5f;
   if (glm::length(player->rigidbody.getSpeed()) > 1e-1) {
     player->rigidbody.applyForce(
         maxFriction * -glm::normalize(player->rigidbody.getForward()));

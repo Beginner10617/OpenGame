@@ -13,6 +13,7 @@ int main() {
   Mesh3D *grnd = map.getMesh();
 
   game.addMesh(grnd);
+  game.setMapData(map.data, 4.0f);
   Uint32 lastTicks = SDL_GetTicks();
   while (game.getIsRunning()) {
     Uint32 frameStart = SDL_GetTicks();
