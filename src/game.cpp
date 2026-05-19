@@ -116,6 +116,7 @@ Game::Game(int width, int height, const char *title) {
     exit(EXIT_FAILURE);
   }
   GetOpenGLContextInfo();
+
   glEnable(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
   glCullFace(GL_BACK);
